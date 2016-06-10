@@ -34,3 +34,5 @@ script:
   - ansible-validate-modules --exclude 'utilities/' .
     #- ansible-validate-modules --exclude 'cloud/amazon/ec2_lc\.py|cloud/amazon/ec2_scaling_policy\.py|cloud/amazon/ec2_scaling_policy\.py|cloud/amazon/ec2_asg\.py|cloud/azure/azure\.py|packaging/os/rhn_register\.py|network/openswitch/ops_template\.py|system/hostname\.py|utilities/' .
   #- ./test-docs.sh core
+  - pip install -r test-requirements.txt
+  - PYTHONPATH=$PYTHONPATH:. py.test --random test/unit/cloud/somebodyscomputer

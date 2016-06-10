@@ -1,17 +1,14 @@
 import mock
 from StringIO import StringIO
 
-from ansible.modules.core.cloud.somebodyscomputer import firstmod
+from cloud.somebodyscomputer import firstmod
 
 
 class TestFirstMod:
 
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.write_data", autospec=True)
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.fetch_data", autospec=True)
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.AnsibleModule", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.write_data", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.fetch_data", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.AnsibleModule", autospec=True)
     def test__main__success(self, ansible_mod_cls, fetch_data, write_data):
         # Prepare mocks
         ansible_mod_obj = ansible_mod_cls.return_value
@@ -49,10 +46,8 @@ class TestFirstMod:
         )
         assert(mock.call(**expected_args) == ansible_mod_obj.exit_json.call_args)
 
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.fetch_url", autospec=True)
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.AnsibleModule", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.fetch_url", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.AnsibleModule", autospec=True)
     def test__fetch_data__success(self, ansible_mod_cls, fetch_url):
         # Mock objects
         url = "https://www.google.com"
@@ -74,15 +69,14 @@ class TestFirstMod:
 
         assert(html == data)
 
-    @mock.patch("ansible.modules.core.cloud"
-                ".somebodyscomputer.firstmod.AnsibleModule", autospec=True)
+    @mock.patch("cloud.somebodyscomputer.firstmod.AnsibleModule", autospec=True)
     def test_save_file(self, ansible_mod_cls):
         dest = "/tmp/somelocation.txt"
         ansible_mod_obj = ansible_mod_cls.return_value
 
         html = "<html><head></head><body></body></html>"
 
-        o_open = "ansible.modules.core.cloud.somebodyscomputer.firstmod.open"
+        o_open = "cloud.somebodyscomputer.firstmod.open"
         m_open = mock.mock_open()
         with mock.patch(o_open, m_open, create=True):
             firstmod.write_data(ansible_mod_obj, html, dest)
