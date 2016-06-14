@@ -1,2 +1,5 @@
 mock
-pytest
+nose
+coverage
+coveralls
+randomize

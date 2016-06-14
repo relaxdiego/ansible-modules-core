@@ -25,5 +25,7 @@ script:
   - python3.4 -m compileall -fq .
   - python3.5 -m compileall -fq .
   - ansible-validate-modules --exclude 'utilities/' .
+  - pip install -r test-requirements.txt
+  - PYTHONPATH=$PYTHONPATH:. nosetests --randomize --cover-package=./ --cover-branches --with-coverage -s -vv -w test
     #- ansible-validate-modules --exclude 'cloud/amazon/ec2_lc\.py|cloud/amazon/ec2_scaling_policy\.py|cloud/amazon/ec2_scaling_policy\.py|cloud/amazon/ec2_asg\.py|cloud/azure/azure\.py|packaging/os/rhn_register\.py|network/openswitch/ops_template\.py|system/hostname\.py|utilities/' .
   #- ./test-docs.sh core
